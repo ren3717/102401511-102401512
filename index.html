@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园失物招领 · 首页</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<meta name="description" content="校园失物招领平台：集中发布和查看寻物、招领信息，支持关键词搜索与筛选">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 顶部导航栏由 js/ui.js 注入 -->
+<header id="app-header"></header>
+
+<main>
+  <div class="wrap">
+
+    <!-- 搜索横幅：输入关键词后跳到搜索页 -->
+    <section class="hero">
+      <h2>校园失物招领</h2>
+      <p>丢了东西别着急，捡到物品别犹豫 —— 在这里集中发布，让信息不再被群聊淹没</p>
+      <form class="hero-search" id="hero-form" autocomplete="off">
+        <input type="text" id="hero-input" placeholder="搜索物品名称，如：校园卡、雨伞、耳机" maxlength="30">
+        <button class="btn" type="submit">搜索</button>
+      </form>
+    </section>
+
+    <!-- 数据概览 -->
+    <section class="stats" id="stats"></section>
+
+    <!-- 类型切换 -->
+    <div class="tabs" id="type-tabs">
+      <button data-type="" class="on">全部信息<span class="count" id="count-all"></span></button>
+      <button data-type="lost">寻物<span class="count" id="count-lost"></span></button>
+      <button data-type="found">招领<span class="count" id="count-found"></span></button>
+    </div>
+
+    <!-- 筛选条：分类 / 地点 / 状态 / 排序 -->
+    <section class="filters">
+      <div class="filter-group" style="width:100%;">
+        <label>分类</label>
+        <div class="chips" id="cat-chips"></div>
+      </div>
+      <div class="filter-group">
+        <label>地点</label>
+        <select class="chip" id="place-select"><option value="">全部地点</option></select>
+      </div>
+      <div class="filter-group">
+        <label>状态</label>
+        <select class="chip" id="status-select">
+          <option value="">全部状态</option>
+          <option value="open">进行中</option>
+          <option value="closed">已结束</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>排序</label>
+        <select class="chip" id="sort-select">
+          <option value="new">最新发布</option>
+          <option value="old">最早发布</option>
+          <option value="time">按物品时间</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="result-bar">
+      <span id="list-summary">正在加载…</span>
+      <button class="btn btn-sm btn-ghost" id="reset-filter" type="button">重置筛选</button>
+    </div>
+
+    <!-- 信息卡片列表 -->
+    <section class="grid" id="card-list"></section>
+
+  </div>
+</main>
+
+<!-- 页脚由 js/ui.js 注入 -->
+<footer id="app-footer"></footer>
+
+<script src="js/utils.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/page-index.js"></script>
+</body>
+</html>
