@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的发布 · 校园失物招领</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-header"></header>
+
+<main>
+  <div class="wrap">
+
+    <div class="page-head">
+      <h1>我的发布</h1>
+      <p>这里只显示你在本机发布的信息；物品找回或归还后，请把状态标记为已找到 / 已归还</p>
+    </div>
+
+    <!-- 我的数据概览 -->
+    <section class="stats" id="mine-stats"></section>
+
+    <div class="mine-toolbar">
+      <div class="tabs" id="status-tabs" style="margin-bottom:0;border:none;">
+        <button data-status="" class="on">全部</button>
+        <button data-status="open">进行中</button>
+        <button data-status="closed">已结束</button>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="btn btn-primary btn-sm" href="publish.html">＋ 发布新信息</a>
+        <button class="btn btn-ghost btn-sm" id="restore-seed" type="button">恢复演示数据</button>
+      </div>
+    </div>
+
+    <section id="mine-list"></section>
+
+  </div>
+</main>
+
+<footer id="app-footer"></footer>
+
+<script src="js/utils.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/page-mine.js"></script>
+</body>
+</html>
