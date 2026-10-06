@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>搜索 · 校园失物招领</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<meta name="description" content="按物品名称等关键词搜索校园失物招领信息，支持类型、分类、地点筛选">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-header"></header>
+
+<main>
+  <div class="wrap">
+
+    <div class="page-head">
+      <h1>搜索信息</h1>
+      <p>支持按物品名称、描述、地点、分类搜索，可组合筛选条件缩小范围</p>
+    </div>
+
+    <!-- 搜索框 -->
+    <form class="search-bar" id="search-form" autocomplete="off">
+      <input type="text" id="keyword" placeholder="输入物品名称，如：校园卡、雨伞、耳机" maxlength="30">
+      <button class="btn btn-primary" type="submit">搜索</button>
+    </form>
+
+    <!-- 热门搜索词 -->
+    <div class="hot-words">
+      <span class="lbl">🔥 热门搜索：</span>
+      <div class="chips" id="hot-chips"></div>
+    </div>
+
+    <!-- 搜索历史（保存在本机） -->
+    <div class="hot-words" id="history-row" style="display:none;">
+      <span class="lbl">🕘 搜索历史：</span>
+      <div class="chips" id="history-chips"></div>
+      <button class="btn btn-sm btn-ghost" id="clear-history" type="button">清空</button>
+    </div>
+
+    <!-- 筛选条 -->
+    <section class="filters" style="margin-bottom:18px;">
+      <div class="filter-group">
+        <label>类型</label>
+        <div class="chips" id="type-chips">
+          <button class="chip on" data-type="">全部</button>
+          <button class="chip" data-type="lost">寻物</button>
+          <button class="chip" data-type="found">招领</button>
+        </div>
+      </div>
+      <div class="filter-group" style="width:100%;">
+        <label>分类</label>
+        <div class="chips" id="cat-chips"></div>
+      </div>
+      <div class="filter-group">
+        <label>地点</label>
+        <select class="chip" id="place-select"><option value="">全部地点</option></select>
+      </div>
+      <div class="filter-group">
+        <label>排序</label>
+        <select class="chip" id="sort-select">
+          <option value="new">最新发布</option>
+          <option value="time">按物品时间</option>
+        </select>
+      </div>
+    </section>
+
+    <div class="result-bar">
+      <span id="result-summary">请输入关键词开始搜索</span>
+      <button class="btn btn-sm btn-ghost" id="reset-btn" type="button">重置全部条件</button>
+    </div>
+
+    <section class="grid" id="result-list"></section>
+
+  </div>
+</main>
+
+<footer id="app-footer"></footer>
+
+<script src="js/utils.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/page-search.js"></script>
+</body>
+</html>
