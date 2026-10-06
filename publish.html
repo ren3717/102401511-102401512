@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>发布信息 · 校园失物招领</title>
+<link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+<meta name="description" content="发布寻物或招领信息，填写物品名称、分类、地点、时间、联系方式">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-header"></header>
+
+<main>
+  <div class="wrap">
+
+    <div class="page-head">
+      <h1>发布信息</h1>
+      <p>选择发布类型后填写物品信息，带 <span style="color:#FA5151">*</span> 的为必填项</p>
+    </div>
+
+    <form class="form-card" id="publish-form" novalidate>
+
+      <!-- 类型选择 -->
+      <div class="form-row">
+        <label>信息类型 <span class="req">*</span></label>
+        <div class="type-picker" id="type-picker">
+          <div class="type-option on" data-type="found">
+            <span class="ti">🙋</span>
+            <div>
+              <div class="tt">我捡到了东西（招领）</div>
+              <div class="td">发布招领信息，等待失主联系</div>
+            </div>
+          </div>
+          <div class="type-option" data-type="lost">
+            <span class="ti">😢</span>
+            <div>
+              <div class="tt">我丢了东西（寻物）</div>
+              <div class="td">发布寻物信息，请大家帮忙留意</div>
+            </div>
+          </div>
+        </div>
+        <div class="err-msg" data-err="type"></div>
+      </div>
+
+      <!-- 物品名称 -->
+      <div class="form-row">
+        <label>物品名称 <span class="req">*</span><span class="hint">2~30 字，写清楚物品特征更容易被找到</span></label>
+        <input class="input" type="text" id="f-title" maxlength="30" placeholder="例如：校园卡（学号尾号 32）">
+        <div class="err-msg" data-err="title"></div>
+      </div>
+
+      <!-- 分类 -->
+      <div class="form-row">
+        <label>物品分类 <span class="req">*</span></label>
+        <div class="chips" id="cat-chips"></div>
+        <div class="err-msg" data-err="category"></div>
+      </div>
+
+      <div class="form-grid">
+        <!-- 地点 -->
+        <div class="form-row">
+          <label>地点 <span class="req">*</span></label>
+          <input class="input" type="text" id="f-place" list="place-list" maxlength="20" placeholder="例如：图书馆二楼">
+          <datalist id="place-list"></datalist>
+          <div class="err-msg" data-err="place"></div>
+        </div>
+
+        <!-- 时间 -->
+        <div class="form-row">
+          <label>时间 <span class="req">*</span></label>
+          <input class="input" type="datetime-local" id="f-time">
+          <div class="err-msg" data-err="time"></div>
+        </div>
+      </div>
+
+      <!-- 图片 -->
+      <div class="form-row">
+        <label>物品照片 <span class="hint">选填，最多 3 张，会自动压缩后保存在本机</span></label>
+        <div class="uploader" id="uploader">
+          <label class="upload-box" id="upload-btn">
+            <span class="plus">＋</span>
+            <span>添加照片</span>
+            <input type="file" id="file-input" accept="image/*" multiple hidden>
+          </label>
+        </div>
+        <div class="err-msg" data-err="images"></div>
+      </div>
+
+      <!-- 描述 -->
+      <div class="form-row">
+        <label>物品描述 <span class="char-count" id="desc-count">0/200</span></label>
+        <textarea class="textarea" id="f-desc" maxlength="200"
+          placeholder="补充细节：颜色、品牌、有无挂件、丢失/捡到的具体位置等（选填）"></textarea>
+        <div class="err-msg" data-err="desc"></div>
+      </div>
+
+      <!-- 联系方式 -->
+      <div class="form-row">
+        <label>联系方式 <span class="req">*</span><span class="hint">手机号 / 微信号 / QQ / 邮箱</span></label>
+        <input class="input" type="text" id="f-contact" maxlength="30" placeholder="例如：13800138000 或 wx: your_id">
+        <div class="err-msg" data-err="contact"></div>
+      </div>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-lg" type="submit" id="submit-btn">确认发布</button>
+        <button class="btn btn-ghost btn-lg" type="reset" id="reset-btn">清空重填</button>
+      </div>
+
+    </form>
+
+  </div>
+</main>
+
+<footer id="app-footer"></footer>
+
+<script src="js/utils.js"></script>
+<script src="js/store.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/page-publish.js"></script>
+</body>
+</html>
