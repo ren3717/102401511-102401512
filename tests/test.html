@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>单元测试 · 校园失物招领</title>
+<link rel="icon" href="../images/favicon.svg" type="image/svg+xml">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", Consolas, monospace;
+    background: #F5F7F9; color: #1F2329; padding: 30px 20px 60px; line-height: 1.6;
+  }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; margin-bottom: 6px; }
+  .sub { color: #646A73; font-size: 13.5px; margin-bottom: 22px; }
+  .toolbar { margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  button {
+    height: 38px; padding: 0 20px; border-radius: 9px; border: none; cursor: pointer;
+    background: #07C160; color: #fff; font-size: 14px; font-weight: 600; font-family: inherit;
+  }
+  button:hover { background: #06AD56; }
+  button.ghost { background: #fff; color: #646A73; border: 1px solid #EAECEF; }
+  .summary {
+    background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 18px;
+    font-size: 15px; box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    border-left: 5px solid #07C160;
+  }
+  .summary-bad { border-left-color: #FA5151; }
+  .summary .big { font-size: 30px; font-weight: 700; color: #07C160; }
+  .summary-bad .big { color: #FA5151; }
+  .summary .bad { color: #FA5151; }
+  .suite { background: #fff; border-radius: 12px; margin-bottom: 14px; overflow: hidden;
+           box-shadow: 0 1px 3px rgba(0,0,0,.05); }
+  .suite h3 {
+    font-size: 14.5px; padding: 13px 20px; background: #FAFBFC; border-bottom: 1px solid #EAECEF;
+    font-weight: 700;
+  }
+  .case { display: flex; align-items: flex-start; gap: 10px; padding: 10px 20px;
+          border-bottom: 1px solid #F5F7F9; font-size: 13.5px; flex-wrap: wrap; }
+  .case:last-child { border-bottom: none; }
+  .case.ok .mark { color: #07C160; font-weight: 700; }
+  .case.bad { background: #FFF6F6; }
+  .case.bad .mark { color: #FA5151; font-weight: 700; }
+  .cname { flex: 1; min-width: 200px; }
+  .cms { color: #B0B6BD; font-size: 12px; }
+  .cmsg { flex-basis: 100%; color: #D03030; font-size: 12.5px; padding-left: 22px;
+          font-family: Consolas, Monaco, monospace; }
+  .foot { margin-top: 24px; color: #8F959E; font-size: 12.5px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🧪 单元测试报告</h1>
+  <p class="sub">
+    校园失物招领 · 测试对象：<code>js/utils.js</code>（工具函数）与 <code>js/store.js</code>（数据层）<br>
+    测试框架：自研 mini-test.js（零依赖，双击本页面即可运行，不需要安装 Node.js）
+  </p>
+
+  <div class="toolbar">
+    <button id="run-btn">▶ 重新运行全部用例</button>
+    <button class="ghost" id="back-btn">← 返回首页</button>
+    <span id="time" class="sub" style="margin:0;"></span>
+  </div>
+
+  <div id="result"></div>
+
+  <p class="foot">
+    测试用例设计思路：等价类划分 + 边界值分析 + 特殊值（空值 / 非法值 / 损坏数据）<br>
+    测试使用内存假存储，不读写真实数据，因此可以反复运行
+  </p>
+</div>
+
+<!-- 被测代码 -->
+<script src="../js/utils.js"></script>
+<script src="../js/store.js"></script>
+<!-- 测试框架 -->
+<script src="mini-test.js"></script>
+<!-- 测试用例 -->
+<script src="utils.test.js"></script>
+<script src="store.test.js"></script>
+
+<script>
+(function () {
+  'use strict';
+  var resultBox = document.getElementById('result');
+  var timeEl = document.getElementById('time');
+
+  function runAll() {
+    // 注意：测试用例是在测试文件加载时通过 describe / it 收集的，
+    // 这里不能调用 MiniTest.reset()，否则会把已收集的用例清空。
+    // "重新运行"按钮用 location.reload() 实现，保证用例被重新收集一遍。
+    var t0 = Date.now();
+    var results = MiniTest.run();
+    var ms = Date.now() - t0;
+    MiniTest.render(results, resultBox);
+    timeEl.textContent = '耗时 ' + ms + ' ms';
+
+    // 把结果同步到页面标题，方便一眼看到是否全绿
+    document.title = (results.failed + results.error === 0 ? '✓ ' : '✗ ') +
+      results.passed + '/' + results.total + ' 通过 · 单元测试';
+  }
+
+  document.getElementById('run-btn').addEventListener('click', function () {
+    location.reload();      // 重新加载可保证用例被重新收集，结果最准确
+  });
+  document.getElementById('back-btn').addEventListener('click', function () {
+    location.href = '../index.html';
+  });
+
+  runAll();
+})();
+</script>
+</body>
+</html>
